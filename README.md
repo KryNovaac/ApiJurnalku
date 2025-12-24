@@ -1,59 +1,151 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+# 🚀 Jurnalku Mobile - Siswa Directory & Portfolio
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+**Jurnalku** adalah aplikasi manajemen portofolio dan direktori siswa SMK Wikrama Bogor. Proyek ini menghubungkan **Backend Laravel 12** sebagai penyedia API data siswa dengan **Flutter Mobile** sebagai antarmuka pengguna.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 🛠️ Stack Teknologi
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+* **Backend:** Laravel 12 (PHP 8.2+)
+* **Database:** SQL (MySQL/PostgreSQL)
+* **Mobile:** Flutter 3.x
+* **State Management:** Provider
+* **Networking:** HTTP & Cached Network Image
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## 📂 Dokumentasi API (Endpoints)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Backend menggunakan standar JSON RESTful. Data relasi (`portfolios`, `social_links`, `certificates`) dimuat secara otomatis menggunakan *Eager Loading* di Laravel.
 
-### Premium Partners
+### 1. Ambil Semua Siswa
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+* **URL:** `GET /api/users`
+* **Deskripsi:** Mengambil daftar seluruh siswa untuk halaman Explore.
+* **Struktur Response:**
 
-## Contributing
+```json
+[
+  {
+    "id": 1,
+    "name": "M. Reysha Nova A",
+    "nis": "12309727",
+    "rombel": "pplg-xii5",
+    "rayon": "cicurug-9",
+    "photo": "none",
+    "portfolios": [
+      {
+        "title": "Sistem Jurnal PKL",
+        "description": "Aplikasi untuk mencatat kegiatan harian PKL"
+      }
+    ],
+    "social_links": [
+      { "platform": "Instagram", "url": "..." },
+      { "platform": "GitHub", "url": "..." }
+    ]
+  }
+]
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```
 
-## Code of Conduct
+### 2. Ambil Detail Siswa (NIS)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+* **URL:** `GET /api/users/{nis}`
+* **Deskripsi:** Mengambil data spesifik satu siswa untuk halaman profil.
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## ⚙️ Panduan Instalasi Backend (Laravel 12)
 
-## License
+1. **Clone & Install:**
+```bash
+git clone <repository-url>
+cd jurnalku-backend
+composer install
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```
+
+
+2. **Environment:**
+```bash
+cp .env.example .env
+php artisan key:generate
+
+```
+
+
+3. **Database Setup:**
+Pastikan database SQL Anda sudah siap, lalu jalankan:
+```bash
+php artisan migrate --seed
+
+```
+
+
+4. **Menjalankan Server:**
+```bash
+php artisan serve --host=0.0.0.0 --port=8000
+
+```
+
+
+
+---
+
+## ⚙️ Panduan Instalasi Mobile (Flutter)
+
+1. **Install Package:**
+```bash
+flutter pub get
+
+```
+
+
+2. **Konfigurasi API:**
+Ubah `baseUrl` pada kode Flutter Anda agar mengarah ke IP Server Laravel:
+* **Emulator:** `http://10.0.2.2:8000/api`
+* **Local Network:** `http://192.168.x.x:8000/api`
+
+
+3. **Run:**
+```bash
+flutter run
+
+```
+
+
+
+---
+
+## 💡 Catatan Implementasi Flutter
+
+Berdasarkan data JSON Anda, terdapat beberapa hal yang perlu diperhatikan pada sisi Flutter:
+
+1. **Format Teks:** Data `rombel` (`pplg-xii5`) dan `rayon` (`cicurug-9`) dikirim dalam format *lowercase-kebab*. Di Flutter, gunakan `.toUpperCase().replaceAll('-', ' ')` untuk tampilan yang lebih rapi (contoh: **PPLG XII 5**).
+2. **Handling Null:**
+* `photo: "none"`: Jika "none", aplikasi secara otomatis menampilakan **UI Avatars** berdasarkan nama siswa.
+* `portfolios: []`: Jika array kosong, aplikasi akan menampilkan pesan "Belum ada portofolio".
+
+
+3. **Keamanan:** Gunakan `nis` sebagai kunci pencarian yang unik pada endpoint detail.
+
+---
+
+## 📸 Fitur Saat Ini
+
+* [x] **API Integration:** Penarikan data real-time dari Laravel 12.
+* [x] **Smart Filter:** Filter berdasarkan Rombel, Rayon, dan Jurusan secara dinamis.
+* [x] **Portfolio Tracking:** Menampilkan jumlah proyek dan sertifikat yang dimiliki tiap siswa.
+* [x] **Social Links:** Integrasi link media sosial siswa ke browser/aplikasi eksternal.
+
+---
+
+### Tips Tambahan untuk Anda:
+
+Karena Anda menggunakan **Laravel 12**, pastikan pada `UserController.php` Anda sudah menggunakan `with([...])` agar data `portfolios` dan `social_links` tidak bernilai kosong (`[]`) saat dipanggil oleh Flutter.
+
+Apakah Anda ingin saya membantu membuatkan **Seeder** di Laravel agar data dummy Anda (seperti "Pentol Kuda" atau "M. Reysha") bisa langsung masuk ke database dengan satu perintah?
