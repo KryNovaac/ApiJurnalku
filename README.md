@@ -143,9 +143,3 @@ Berdasarkan data JSON Anda, terdapat beberapa hal yang perlu diperhatikan pada s
 * [x] **Social Links:** Integrasi link media sosial siswa ke browser/aplikasi eksternal.
 
 ---
-
-### Tips Tambahan untuk Anda:
-
-Karena Anda menggunakan **Laravel 12**, pastikan pada `UserController.php` Anda sudah menggunakan `with([...])` agar data `portfolios` dan `social_links` tidak bernilai kosong (`[]`) saat dipanggil oleh Flutter.
-
-Apakah Anda ingin saya membantu membuatkan **Seeder** di Laravel agar data dummy Anda (seperti "Pentol Kuda" atau "M. Reysha") bisa langsung masuk ke database dengan satu perintah?
